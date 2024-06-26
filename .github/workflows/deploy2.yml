@@ -3,7 +3,7 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - mybranch # Change this to your default branch
+      - mybranch  # Change this to your default branch
 
 jobs:
   deploy:
@@ -24,6 +24,5 @@ jobs:
       run: aws s3 sync . s3://your-s3-bucket-name --delete
 
     - name: Invalidate CloudFront
-      if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+      if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
       run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
-
